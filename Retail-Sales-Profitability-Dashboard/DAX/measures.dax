@@ -1,0 +1,63 @@
+
+-- =====================================================
+-- PROJECT: Retail Sales & Profitability Dashboard
+-- TABLE: Superstore
+-- TOOL: Microsoft Power BI
+-- =====================================================
+
+-- 1. TOTAL SALES
+Total Sales =
+SUM('Superstore'[Sales])
+
+
+-- 2. TOTAL PROFIT
+Total Profit =
+SUM('Superstore'[Profit])
+
+
+-- 3. TOTAL ORDERS
+Total Orders =
+DISTINCTCOUNT('Superstore'[Order ID])
+
+
+-- 4. TOTAL CUSTOMERS
+Total Customers =
+DISTINCTCOUNT('Superstore'[Customer ID])
+
+
+-- 5. TOTAL QUANTITY
+Total Quantity =
+SUM('Superstore'[Quantity])
+
+
+-- 6. PROFIT MARGIN
+Profit Margin =
+DIVIDE(
+    [Total Profit],
+    [Total Sales],
+    0
+)
+
+
+-- 7. AVERAGE ORDER VALUE
+Average Order Value =
+DIVIDE(
+    [Total Sales],
+    [Total Orders],
+    0
+)
+
+
+-- =====================================================
+-- CALCULATED COLUMN
+-- =====================================================
+
+-- 8. DISCOUNT BAND
+Discount Band =
+SWITCH(
+    TRUE(),
+    'Superstore'[Discount] = 0, "1. No Discount",
+    'Superstore'[Discount] <= 0.2, "2. 1-20%",
+    'Superstore'[Discount] <= 0.4, "3. 21-40%",
+    "4. Above 40%"
+)
