@@ -87,7 +87,7 @@ This page analyses how different discount levels are associated with business pr
 The dataset contains sales transactions and product, customer and regional information.
 
 **Dataset source:** Kaggle – Superstore Dataset  
-**Dataset URL:** Add the original Kaggle dataset URL here.
+**Dataset URL:** https://www.kaggle.com/datasets/bravehart101/sample-supermarket-dataset
 
 ---
 
