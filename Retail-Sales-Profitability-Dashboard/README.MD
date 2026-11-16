@@ -262,8 +262,14 @@ Retail-Sales-Profitability-Dashboard/
 │   ├── product_customer_analysis.png
 │   └── discount_impact.png
 │
-└── data/
-    └── (Optional: dataset or source information)
+├── dataset/
+│   └── Superstore.csv
+│
+├── documentation/
+│   └── Retail_Sales_Business_Analysis.pdf
+│
+└── DAX/
+    └── measures.dax
 ```
 
 ## Conclusion
