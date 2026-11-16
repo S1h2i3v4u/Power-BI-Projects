@@ -19,7 +19,7 @@ The dashboard helps identify:
 
 This page provides an overall view of business performance.
 
-![Sales Overview](screenshots/sales_overview.png)
+![Sales Overview](screenshots/sales_overview.jpng)
 
 **Key features:**
 - Total Sales
