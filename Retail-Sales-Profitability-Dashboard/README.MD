@@ -36,7 +36,7 @@ This page provides an overall view of business performance.
 
 This page focuses on product performance and customer contribution.
 
-![Product and Customer Analysis](screenshots/product_customer_analysis.png)
+![Product & Customer Analysis](Screenshots/product_analysis.jpeg)
 
 **Key features:**
 - Top 10 Products by Sales
@@ -50,7 +50,7 @@ This page focuses on product performance and customer contribution.
 
 This page analyses how different discount levels are associated with business profitability.
 
-![Discount Impact](screenshots/discount_impact.png)
+![Dashboard Overview](Screenshots/dashboard_overview.jpeg)
 
 **Key features:**
 - Profit by Discount Band
