@@ -65,9 +65,9 @@ This page analyses how different discount levels are associated with business pr
 
 **Dataset:** Superstore Retail Sales Dataset
 
-- Total records: 9,994
-- Data period: January 2014 – December 2017
-- Data type: Retail sales transactions
+- **Total records:** 9,994
+- **Data period:** January 2014 – December 2017
+- **Data type:** Retail sales transactions
 
 **Important columns used:**
 - Order Date
@@ -76,7 +76,9 @@ This page analyses how different discount levels are associated with business pr
 - Category
 - Sub-Category
 - Product Name
+- Customer ID
 - Customer Name
+- Order ID
 - Sales
 - Quantity
 - Discount
@@ -85,7 +87,7 @@ This page analyses how different discount levels are associated with business pr
 The dataset contains sales transactions and product, customer and regional information.
 
 **Dataset source:** Kaggle – Superstore Dataset  
-Add the original Kaggle dataset URL here.
+**Dataset URL:** Add the original Kaggle dataset URL here.
 
 ---
 
@@ -94,18 +96,18 @@ Add the original Kaggle dataset URL here.
 | Tool | Purpose |
 |---|---|
 | Power BI Desktop | Dashboard development and data visualisation |
-| DAX | Calculated measures and columns |
+| DAX | Creating calculated measures and columns |
 | CSV | Source data format |
 
 ---
 
 ## Key Performance Indicators (KPIs)
 
-The dashboard uses the following measures:
+The dashboard uses the following seven DAX measures:
 
 | KPI | Description |
 |---|---|
-| Total Sales | Total revenue generated from sales |
+| Total Sales | Total sales revenue |
 | Total Profit | Total profit generated |
 | Total Orders | Number of unique orders |
 | Total Customers | Number of unique customers |
@@ -117,49 +119,76 @@ The dashboard uses the following measures:
 
 **1. Total Sales**
 ```dax
-Total Sales = SUM('Superstore'[Sales])
+Total Sales =
+SUM('Superstore'[Sales])
 ```
 
 **2. Total Profit**
 ```dax
-Total Profit = SUM('Superstore'[Profit])
+Total Profit =
+SUM('Superstore'[Profit])
 ```
 
 **3. Total Orders**
 ```dax
-Total Orders = DISTINCTCOUNT('Superstore'[Order ID])
+Total Orders =
+DISTINCTCOUNT('Superstore'[Order ID])
 ```
 
 **4. Total Customers**
 ```dax
-Total Customers = DISTINCTCOUNT('Superstore'[Customer ID])
+Total Customers =
+DISTINCTCOUNT('Superstore'[Customer ID])
 ```
 
 **5. Total Quantity**
 ```dax
-Total Quantity = SUM('Superstore'[Quantity])
+Total Quantity =
+SUM('Superstore'[Quantity])
 ```
 
 **6. Profit Margin**
 ```dax
-Profit Margin = DIVIDE([Total Profit], [Total Sales], 0)
+Profit Margin =
+DIVIDE(
+    [Total Profit],
+    [Total Sales],
+    0
+)
 ```
 
 **7. Average Order Value**
 ```dax
-Average Order Value = DIVIDE([Total Sales], [Total Orders], 0)
+Average Order Value =
+DIVIDE(
+    [Total Sales],
+    [Total Orders],
+    0
+)
 ```
 
 ### Calculated Column – Discount Band
 
-A calculated column was created using `SWITCH(TRUE())` to group discount values into four categories:
+A calculated column was created using `SWITCH(TRUE())` to group discount values into four categories.
 
-- No Discount
-- 1–20%
-- 21–40%
-- Above 40%
+```dax
+Discount Band =
+SWITCH(
+    TRUE(),
+    'Superstore'[Discount] = 0, "1. No Discount",
+    'Superstore'[Discount] <= 0.2, "2. 1-20%",
+    'Superstore'[Discount] <= 0.4, "3. 21-40%",
+    "4. Above 40%"
+)
+```
 
-This grouping helps compare profitability across different discount ranges.
+The four discount groups are:
+- 1. No Discount
+- 2. 1-20%
+- 3. 21-40%
+- 4. Above 40%
+
+This grouping helps compare profitability across different discount ranges. The number prefixes also help maintain the intended category order in the report.
 
 ---
 
@@ -169,10 +198,10 @@ The following findings were identified from the dashboard:
 
 ### 1. Overall Business Performance
 
-- Total Sales: Approximately 2.30M
-- Total Profit: Approximately 286.40K
-- Total Orders: Approximately 5K
-- Profit Margin: Approximately 12.47%
+- **Total Sales:** Approximately 2.30M
+- **Total Profit:** Approximately 286.40K
+- **Total Orders:** Approximately 5K
+- **Profit Margin:** Approximately 12.47%
 
 The business generated approximately 286.40K profit on 2.30M sales.
 
@@ -187,7 +216,7 @@ The profit results across discount bands were:
 | 21–40% | -36K |
 | Above 40% | -100K |
 
-**Observation:** The two discount bands above 20% generated losses in this dataset. This suggests that higher discount levels may be associated with lower profitability.
+**Observation:** The two discount bands above 20% showed negative profit in this dataset. This suggests that higher discount levels are associated with lower profitability in the analysed data. This relationship does not, by itself, prove that discounts caused the losses.
 
 ### 3. Product Sub-Category Performance
 
@@ -203,9 +232,9 @@ Tables and Bookcases are part of the Furniture category.
 
 ### 4. Category Performance
 
-- Technology generated approximately 145K profit.
-- Office Supplies generated approximately 122K profit.
-- Furniture generated approximately 18K profit.
+- **Technology:** Approximately 145K profit.
+- **Office Supplies:** Approximately 122K profit.
+- **Furniture:** Approximately 18K profit.
 
 Furniture had approximately 742K in sales but generated considerably less profit than the other two categories.
 
@@ -213,9 +242,9 @@ Furniture had approximately 742K in sales but generated considerably less profit
 
 The strongest profit contributors included:
 
-- Copiers: Approximately 56K
-- Phones: Approximately 45K
-- Accessories: Approximately 42K
+- **Copiers:** Approximately 56K
+- **Phones:** Approximately 45K
+- **Accessories:** Approximately 42K
 
 ---
 
@@ -228,11 +257,16 @@ Based on the dashboard findings, the following actions could be considered:
 3. **Focus on profitable products:** Protect and promote strong profit-generating sub-categories such as Copiers, Phones and Accessories.
 4. **Monitor business performance:** Regularly track sales, profit and profit margin across regions and categories.
 
+---
+
 ## Project Limitations
 
 - The dataset does not provide a detailed cost breakdown.
 - The analysis identifies relationships between discounts and profitability, but does not prove that discounts alone caused losses.
-- Further analysis within individual products and sub-categories would help understand the reasons behind negative profit.
+- Further analysis of individual products and sub-categories would help understand the reasons behind negative profit.
+- The findings are based on the available dataset and the selected reporting period.
+
+---
 
 ## What I Learned
 
@@ -247,30 +281,36 @@ Through this project, I practised:
 - Comparing profitability across discount ranges.
 - Presenting business findings through visual reports.
 
+---
+
 ## Repository Structure
 
 ```text
-Retail-Sales-Profitability-Dashboard/
+Power-BI-Projects/
 │
-├── README.md
-│
-├── dashboard/
-│   └── Retail_Sales_Business_Analysis.pbix
-│
-├── screenshots/
-│   ├── sales_overview.png
-│   ├── product_customer_analysis.png
-│   └── discount_impact.png
-│
-├── dataset/
-│   └── Superstore.csv
-│
-├── documentation/
-│   └── Retail_Sales_Business_Analysis.pdf
-│
-└── DAX/
-    └── measures.dax
+└── Retail-Sales-Profitability-Dashboard/
+    │
+    ├── README.md
+    │
+    ├── dashboard/
+    │   └── Retail_Sales_Business_Analysis.pbix
+    │
+    ├── Screenshots/
+    │   ├── sales_overview.jpeg
+    │   ├── product_customer_analysis.jpeg
+    │   └── discount_impact.jpeg
+    │
+    ├── dataset/
+    │   └── Superstore.csv
+    │
+    ├── documentation/
+    │   └── Retail_Sales_Business_Analysis.pdf
+    │
+    └── DAX/
+        └── measures.dax
 ```
+
+---
 
 ## Conclusion
 
